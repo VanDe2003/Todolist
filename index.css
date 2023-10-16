@@ -1,0 +1,222 @@
+body {
+    background-color: #eef1f2;
+    font-family: sans-serif;
+}
+
+.div-container {
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title {
+    font-size: xx-large;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 40px;
+}
+
+#error-message {
+    position: sticky;
+    z-index: 1;
+    background-color: #f9d7da;
+    color: #721c24;
+    width: 20%;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    bottom: 81%;
+    left: 2%;
+    border-radius: 6px;
+}
+
+#logo {
+    width: 35px;
+    padding-right: 18px;
+}
+
+.title > span {
+    text-decoration: underline;
+    color: #3b71ca;
+    font-weight: 550;
+}
+
+.input-task {
+    width: 50%;
+
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.calendar-input {
+    display: flex;
+    align-items: center;
+}
+
+#task-input {
+    height: 60px;
+    padding-left: 4%;
+    padding-right: 19%;
+    font-size: 18px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #0056ce;
+}
+
+.date-input {
+    border: none;
+    background-color: white;
+    font-size: 32px;
+    outline: none;
+    position: absolute;
+    left: 84%;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+    display: none;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(50%) sepia(100%) saturate(10000%) hue-rotate(209deg);
+}
+
+#addTask {
+    background-color: #0056ce;
+    border: none;
+    color: white;
+    padding: 9px 13px;
+    border-radius: 4px;
+
+    position: absolute;
+    left: 90%;
+}
+
+.filter {
+    display: flex;
+    align-items: center;
+}
+
+.line {
+    margin: 30px 0;
+    background-color: #b7baba;
+    height: 1px;
+    width: 70%;
+}
+/*  */
+table {
+    max-width: 100%;
+    /* border-collapse: collapse; */
+    font-size: 16px;
+}
+
+.custom-input-edit {
+    font-size: 16px;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    outline: none;
+    width: 100%;
+}
+
+table th,
+table td {
+    border: none;
+    padding: 8px;
+    text-align: left;
+    white-space: normal;
+}
+
+table th {
+    background-color: #3b71ca;
+    color: white;
+}
+
+button {
+    border: none;
+    color: white;
+    padding: 9px 13px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button img {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+.tbl {
+    width: 50%;
+}
+
+#taskTable td:nth-child(1) {
+    background-color: none;
+    color: white;
+    width: 5%;
+}
+
+#taskTable td:nth-child(3) {
+    background-color: none;
+    width: 20%;
+    text-align: center;
+}
+
+#taskTable td:nth-child(2) {
+    max-width: 10px;
+    word-wrap: break-word;
+    width: 59%;
+}
+
+#taskTable td:nth-child(4),
+td:nth-child(5) {
+    background-color: none;
+    width: 8%;
+}
+
+/* CSS cho modal */
+.modal {
+    display: none; /* Mặc định ẩn modal */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* Modal */
+.modal-content {
+    background: white;
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.modal-buttons {
+    text-align: right;
+}
+
+.confirm-button,
+.cancel-button {
+    background-color: #008cba;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.cancel-button {
+    background-color: #ccc;
+}
