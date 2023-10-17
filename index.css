@@ -1,6 +1,6 @@
 body {
     background-color: #eef1f2;
-    font-family: sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 .div-container {
@@ -68,6 +68,17 @@ body {
     border-radius: 5px;
 }
 
+#title-filter {
+    color: #757575;
+    margin-right: 10px;
+}
+
+#taskFilter {
+    height: 30px;
+    width: 125px;
+    padding: 0 8px;
+}
+
 input[type="checkbox"]:checked {
     background-color: #0056ce;
 }
@@ -101,8 +112,11 @@ input[type="date"]::-webkit-datetime-edit {
 }
 
 .filter {
+    width: 50%;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 30px;
 }
 
 .line {
@@ -114,8 +128,9 @@ input[type="date"]::-webkit-datetime-edit {
 /*  */
 table {
     max-width: 100%;
-    /* border-collapse: collapse; */
+    border-collapse: collapse;
     font-size: 16px;
+    margin-bottom: 100px;
 }
 
 .custom-input-edit {
@@ -124,7 +139,17 @@ table {
     padding: 7px 12px;
     border-radius: 6px;
     outline: none;
-    width: 100%;
+    width: 90%;
+    resize: none;
+}
+
+.custom-input-date {
+    outline: none;
+    border: none;
+    font-size: 16px;
+    width: 80%;
+    padding: 7px 10px;
+    border-radius: 6px;
 }
 
 table th,
@@ -133,6 +158,23 @@ table td {
     padding: 8px;
     text-align: left;
     white-space: normal;
+    font-size: 16px;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:nth-child(even) button {
+    background-color: #f2f2f2;
+}
+
+table tr:nth-child(odd) {
+    background-color: #e0e0e0;
+}
+
+table tr:nth-child(odd) button {
+    background-color: #e0e0e0;
 }
 
 table th {

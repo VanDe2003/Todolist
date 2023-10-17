@@ -13,6 +13,20 @@ function updateLocalStorage() {
     localStorage.setItem("listTask", JSON.stringify(listTask));
 }
 
+var keyPressed = false;
+
+document.getElementById("task-input").addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        if (keyPressed) {
+            return;
+        }
+        addTask();
+        keyPressed = true;
+    } else {
+        keyPressed = false;
+    }
+});
+
 function addTask() {
     var taskInput = document.getElementById("task-input");
     var time = document.getElementById("date").value;
@@ -72,12 +86,20 @@ function addTask() {
 
         edit.addEventListener("click", function () {
             var currentTask = cell2.innerHTML;
+            var currentDate = cell3.innerHTML;
 
-            var taskInput = document.createElement("input");
+            var taskInput = document.createElement("textarea");
+            var dateInput = document.createElement("input");
+
             taskInput.type = "text";
             taskInput.value = currentTask;
 
+            dateInput.type = "text";
+            dateInput.value = currentDate;
+
             taskInput.classList.add("custom-input-edit");
+            dateInput.classList.add("custom-input-date");
+            taskInput.setAttribute("rows", "5");
 
             cell4.removeChild(edit);
             cell5.removeChild(del);
@@ -98,28 +120,40 @@ function addTask() {
             cell5.appendChild(cancelButton);
 
             cell2.innerHTML = "";
+            cell3.innerHTML = "";
+
             cell2.appendChild(taskInput);
+            cell3.appendChild(dateInput);
+            taskInput.focus();
 
             saveButton.addEventListener("click", function () {
                 var updatedTask = taskInput.value;
+                var updatedDate = dateInput.value;
 
                 if (updatedTask.trim() === "") {
                     alertMessage();
                 } else {
                     cell2.innerHTML = updatedTask;
+                    cell3.innerHTML = updatedDate;
                     cell4.appendChild(edit);
                     cell5.appendChild(del);
                     cell4.removeChild(saveButton);
                     cell5.removeChild(cancelButton);
+
                     errorMessage.style.display = "none";
+
                     var rowIndex = cell2.parentNode.rowIndex;
+
                     listTask[rowIndex].task = updatedTask;
+                    listTask[rowIndex].date = updatedDate;
+
                     updateLocalStorage();
                 }
             });
 
             cancelButton.addEventListener("click", function () {
                 cell2.innerHTML = currentTask;
+                cell3.innerHTML = currentDate;
                 cell4.appendChild(edit);
                 cell5.appendChild(del);
                 cell4.removeChild(saveButton);
@@ -202,12 +236,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         edit.addEventListener("click", function () {
             var currentTask = cell2.innerHTML;
+            var currentDate = cell3.innerHTML;
 
-            var taskInput = document.createElement("input");
+            var taskInput = document.createElement("textarea");
             taskInput.type = "text";
             taskInput.value = currentTask;
 
+            var dateInput = document.createElement("input");
+            dateInput.type = "text";
+            dateInput.value = currentDate;
+
             taskInput.classList.add("custom-input-edit");
+            dateInput.classList.add("custom-input-date");
+
+            taskInput.setAttribute("rows", "5");
 
             cell4.removeChild(edit);
             cell5.removeChild(del);
@@ -228,22 +270,33 @@ document.addEventListener("DOMContentLoaded", function () {
             cell5.appendChild(cancelButton);
 
             cell2.innerHTML = "";
+            cell3.innerHTML = "";
+
             cell2.appendChild(taskInput);
+            cell3.appendChild(dateInput);
+            taskInput.focus();
 
             saveButton.addEventListener("click", function () {
                 var updatedTask = taskInput.value;
+                var updatedDate = dateInput.value;
 
                 if (updatedTask.trim() === "") {
                     alertMessage();
                 } else {
                     cell2.innerHTML = updatedTask;
+                    cell3.innerHTML = updatedDate;
                     cell4.appendChild(edit);
                     cell5.appendChild(del);
                     cell4.removeChild(saveButton);
                     cell5.removeChild(cancelButton);
+
                     errorMessage.style.display = "none";
+
                     var rowIndex = cell2.parentNode.rowIndex;
+
                     listTask[rowIndex].task = updatedTask;
+                    listTask[rowIndex].date = updatedDate;
+
                     updateLocalStorage();
                 }
             });
@@ -374,12 +427,19 @@ function addRowToTable(table, value) {
 
     edit.addEventListener("click", function () {
         var currentTask = cell2.innerHTML;
+        var currentDate = cell3.innerHTML;
 
-        var taskInput = document.createElement("input");
+        var taskInput = document.createElement("textarea");
         taskInput.type = "text";
+        taskInput.setAttribute("rows", "5");
         taskInput.value = currentTask;
 
+        var dateInput = document.createElement("input");
+        dateInput.type = "text";
+        dateInput.value = currentDate;
+
         taskInput.classList.add("custom-input-edit");
+        dateInput.classList.add("custom-input-date");
 
         cell4.removeChild(edit);
         cell5.removeChild(del);
@@ -400,22 +460,33 @@ function addRowToTable(table, value) {
         cell5.appendChild(cancelButton);
 
         cell2.innerHTML = "";
+        cell3.innerHTML = "";
+
         cell2.appendChild(taskInput);
+        cell3.appendChild(dateInput);
+        taskInput.focus();
 
         saveButton.addEventListener("click", function () {
             var updatedTask = taskInput.value;
+            var updatedDate = dateInput.value;
 
             if (updatedTask.trim() === "") {
                 alertMessage();
             } else {
                 cell2.innerHTML = updatedTask;
+                cell3.innerHTML = updatedDate;
                 cell4.appendChild(edit);
                 cell5.appendChild(del);
                 cell4.removeChild(saveButton);
                 cell5.removeChild(cancelButton);
+
                 errorMessage.style.display = "none";
+
                 var rowIndex = cell2.parentNode.rowIndex;
+
                 listTask[rowIndex].task = updatedTask;
+                listTask[rowIndex].date = updatedDate;
+
                 updateLocalStorage();
             }
         });
@@ -457,23 +528,6 @@ function addRowToTable(table, value) {
         });
     });
 }
-
-// Update Previous Data
-// function updatePreviousData() {
-//     previousData = [];
-//     for (var i = 0; i < listTask.length; i++) {
-//         previousData.push(Object.assign({}, listTask[i]));
-//     }
-// }
-
-// updatePreviousData();
-
-// function removeRowAfterSort(rowIndex) {
-//     table.deleteRow(rowIndex);
-//     listTask.splice(rowIndex, 1);
-
-//     updatePreviousData();
-// }
 
 function updateCompletedStatus(rowIndex, newCompletedStatus) {
     for (var i = 0; i < listTask.length; i++) {

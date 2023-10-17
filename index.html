@@ -29,7 +29,7 @@
             <div class="line"></div>
 
             <div class="filter">
-                <label for="taskFilter">Filter</label>
+                <label id="title-filter" for="taskFilter">Filter</label>
                 <select id="taskFilter">
                     <option value="all">All</option>
                     <option value="az">A-Z</option>
@@ -51,6 +51,7 @@
             </div>
         </div>
         <div id="error-message" style="display: none">Please enter a task before adding it.</div>
+
         <div class="modal" id="confirmationModal">
             <div class="modal-content">
                 <p>Are you sure you want to delete this task?</p>
