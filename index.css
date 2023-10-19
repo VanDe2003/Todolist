@@ -68,6 +68,23 @@ body {
     border-radius: 5px;
 }
 
+#none-task {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    margin-left: 25%;
+    font-size: 16px;
+}
+
+#p1 {
+    font-weight: 600;
+}
+
+#p2 {
+    line-height: 0.8cm;
+}
+
 #title-filter {
     color: #757575;
     margin-right: 10px;
@@ -261,4 +278,125 @@ td:nth-child(5) {
 
 .cancel-button {
     background-color: #ccc;
+}
+
+@media (max-width: 1124px) {
+    .input-task {
+        width: 50%;
+    }
+
+    #task-input {
+        padding-right: 0;
+        margin-top: 10px;
+        width: 1000%;
+    }
+
+    #addTask {
+        left: 87%;
+    }
+
+    .calendar-input {
+        margin-right: 10px;
+    }
+
+    .date-input {
+        position: absolute;
+        left: 80%;
+    }
+}
+
+@media (max-width: 1050px) {
+    .input-task {
+        width: 50%;
+    }
+
+    #task-input {
+        padding-right: 0;
+        margin-top: 10px;
+        width: 1000%;
+    }
+
+    #addTask {
+        left: 85%;
+    }
+
+    .calendar-input {
+    }
+
+    .date-input {
+        position: absolute;
+        left: 76%;
+    }
+}
+
+@media (max-width: 820px) {
+    .input-task {
+        width: 50%;
+    }
+
+    #task-input {
+        padding-right: 0;
+        margin-top: 10px;
+        width: 1000%;
+    }
+
+    #addTask {
+        left: 80%;
+    }
+
+    .calendar-input {
+    }
+
+    .date-input {
+        position: absolute;
+        left: 70%;
+    }
+}
+
+@media (max-width: 650px) {
+    .input-task {
+        width: 50%;
+    }
+
+    #task-input {
+        padding-right: 0;
+        margin-top: 10px;
+        width: 1000%;
+    }
+
+    #addTask {
+        left: 75%;
+    }
+
+    .calendar-input {
+    }
+
+    .date-input {
+        position: absolute;
+        left: 60%;
+    }
+}
+
+@media (max-width: 500px) {
+    .input-task {
+        width: 50%;
+    }
+
+    #task-input {
+        padding-right: 0;
+        margin-top: 10px;
+        width: 1000%;
+    }
+
+    #addTask {
+        left: 70%;
+    }
+
+    .calendar-input {
+    }
+
+    .date-input {
+        position: absolute;
+        left: 55%;
+    }
 }

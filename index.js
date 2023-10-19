@@ -33,9 +33,7 @@ function addTask() {
     var taskTable = document.getElementById("taskTable").getElementsByTagName("tbody")[0];
 
     var task = taskInput.value;
-
     if (task) {
-        // var newRow = taskTable.insertRow(taskTable.rows.length);
         var newRow = taskTable.insertRow(0);
         var rowIndex = newRow.rowIndex;
         var cell1 = newRow.insertCell(0);
@@ -45,7 +43,6 @@ function addTask() {
         var cell5 = newRow.insertCell(4);
 
         var newTask = {task: task, date: time, completed: false, rowIndex: rowIndex};
-        // listTask.push(newTask);
         listTask.unshift(newTask);
 
         for (var i = 0; i < listTask.length; i++) {
@@ -188,6 +185,8 @@ function addTask() {
                 modal.style.display = "none";
             });
         });
+
+        document.getElementById("none-task").style.display = "none";
     } else {
         alertMessage();
     }
@@ -198,146 +197,151 @@ document.getElementById("date").min = formattedDate;
 document.addEventListener("DOMContentLoaded", function () {
     var taskTable = document.getElementById("taskTable").getElementsByTagName("tbody")[0];
 
-    listTask.forEach(function (taskData) {
-        var newRow = taskTable.insertRow(taskTable.rows.length);
-        var cell1 = newRow.insertCell(0);
-        var cell2 = newRow.insertCell(1);
-        var cell3 = newRow.insertCell(2);
-        var cell4 = newRow.insertCell(3);
-        var cell5 = newRow.insertCell(4);
+    if (listTask && listTask.length > 0) {
+        document.getElementById("none-task").style.display = "none";
 
-        var checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = taskData.completed;
+        listTask.forEach(function (taskData) {
+            var newRow = taskTable.insertRow(taskTable.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            var cell5 = newRow.insertCell(4);
 
-        var edit = document.createElement("button");
-        var del = document.createElement("button");
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = taskData.completed;
 
-        var editIcon = document.createElement("img");
-        editIcon.src = "./images/edit.png";
-        editIcon.alt = "Edit";
-        edit.appendChild(editIcon);
+            var edit = document.createElement("button");
+            var del = document.createElement("button");
 
-        var delIcon = document.createElement("img");
-        delIcon.src = "./images/delete.png";
-        delIcon.alt = "Delete";
-        del.appendChild(delIcon);
+            var editIcon = document.createElement("img");
+            editIcon.src = "./images/edit.png";
+            editIcon.alt = "Edit";
+            edit.appendChild(editIcon);
 
-        cell1.appendChild(checkbox);
-        cell2.innerHTML = taskData.task;
-        cell3.innerHTML = taskData.date;
-        cell4.appendChild(edit);
-        cell5.appendChild(del);
+            var delIcon = document.createElement("img");
+            delIcon.src = "./images/delete.png";
+            delIcon.alt = "Delete";
+            del.appendChild(delIcon);
 
-        checkbox.addEventListener("click", function () {
-            taskData.completed = checkbox.checked;
-            updateLocalStorage();
-        });
+            cell1.appendChild(checkbox);
+            cell2.innerHTML = taskData.task;
+            cell3.innerHTML = taskData.date;
+            cell4.appendChild(edit);
+            cell5.appendChild(del);
 
-        edit.addEventListener("click", function () {
-            var currentTask = cell2.innerHTML;
-            var currentDate = cell3.innerHTML;
+            checkbox.addEventListener("click", function () {
+                taskData.completed = checkbox.checked;
+                updateLocalStorage();
+            });
 
-            var taskInput = document.createElement("textarea");
-            taskInput.type = "text";
-            taskInput.value = currentTask;
+            edit.addEventListener("click", function () {
+                var currentTask = cell2.innerHTML;
+                var currentDate = cell3.innerHTML;
 
-            var dateInput = document.createElement("input");
-            dateInput.type = "text";
-            dateInput.value = currentDate;
+                var taskInput = document.createElement("textarea");
+                taskInput.type = "text";
+                taskInput.value = currentTask;
 
-            taskInput.classList.add("custom-input-edit");
-            dateInput.classList.add("custom-input-date");
+                var dateInput = document.createElement("input");
+                dateInput.type = "text";
+                dateInput.value = currentDate;
 
-            taskInput.setAttribute("rows", "5");
+                taskInput.classList.add("custom-input-edit");
+                dateInput.classList.add("custom-input-date");
 
-            cell4.removeChild(edit);
-            cell5.removeChild(del);
+                taskInput.setAttribute("rows", "5");
 
-            var saveButton = document.createElement("button");
-            var cancelButton = document.createElement("button");
+                cell4.removeChild(edit);
+                cell5.removeChild(del);
 
-            var saveIcon = document.createElement("img");
-            var cancelIcon = document.createElement("img");
+                var saveButton = document.createElement("button");
+                var cancelButton = document.createElement("button");
 
-            saveIcon.src = "./images/save.png";
-            cancelIcon.src = "./images/cancel.png";
+                var saveIcon = document.createElement("img");
+                var cancelIcon = document.createElement("img");
 
-            saveButton.appendChild(saveIcon);
-            cancelButton.appendChild(cancelIcon);
+                saveIcon.src = "./images/save.png";
+                cancelIcon.src = "./images/cancel.png";
 
-            cell4.appendChild(saveButton);
-            cell5.appendChild(cancelButton);
+                saveButton.appendChild(saveIcon);
+                cancelButton.appendChild(cancelIcon);
 
-            cell2.innerHTML = "";
-            cell3.innerHTML = "";
+                cell4.appendChild(saveButton);
+                cell5.appendChild(cancelButton);
 
-            cell2.appendChild(taskInput);
-            cell3.appendChild(dateInput);
-            taskInput.focus();
+                cell2.innerHTML = "";
+                cell3.innerHTML = "";
 
-            saveButton.addEventListener("click", function () {
-                var updatedTask = taskInput.value;
-                var updatedDate = dateInput.value;
+                cell2.appendChild(taskInput);
+                cell3.appendChild(dateInput);
+                taskInput.focus();
 
-                if (updatedTask.trim() === "") {
-                    alertMessage();
-                } else {
-                    cell2.innerHTML = updatedTask;
-                    cell3.innerHTML = updatedDate;
+                saveButton.addEventListener("click", function () {
+                    var updatedTask = taskInput.value;
+                    var updatedDate = dateInput.value;
+
+                    if (updatedTask.trim() === "") {
+                        alertMessage();
+                    } else {
+                        cell2.innerHTML = updatedTask;
+                        cell3.innerHTML = updatedDate;
+                        cell4.appendChild(edit);
+                        cell5.appendChild(del);
+                        cell4.removeChild(saveButton);
+                        cell5.removeChild(cancelButton);
+
+                        errorMessage.style.display = "none";
+
+                        var rowIndex = cell2.parentNode.rowIndex;
+
+                        listTask[rowIndex].task = updatedTask;
+                        listTask[rowIndex].date = updatedDate;
+
+                        updateLocalStorage();
+                    }
+                });
+
+                cancelButton.addEventListener("click", function () {
+                    cell2.innerHTML = currentTask;
+                    cell3.innerHTML = currentDate;
                     cell4.appendChild(edit);
                     cell5.appendChild(del);
                     cell4.removeChild(saveButton);
                     cell5.removeChild(cancelButton);
-
                     errorMessage.style.display = "none";
+                });
+            });
 
-                    var rowIndex = cell2.parentNode.rowIndex;
+            del.addEventListener("click", function () {
+                var modal = document.getElementById("confirmationModal");
+                modal.style.display = "block";
 
-                    listTask[rowIndex].task = updatedTask;
-                    listTask[rowIndex].date = updatedDate;
+                var confirmDelete = document.getElementById("confirmDelete");
+                confirmDelete.addEventListener("click", function () {
+                    modal.style.display = "none";
+
+                    var rowIndex = del.parentNode.parentNode.rowIndex;
+
+                    listTask.splice(rowIndex, 1);
+
+                    for (var i = rowIndex; i < listTask.length; i++) {
+                        listTask[i].rowIndex = i;
+                    }
+
+                    taskTable.deleteRow(rowIndex);
 
                     updateLocalStorage();
-                }
-            });
+                });
 
-            cancelButton.addEventListener("click", function () {
-                cell2.innerHTML = currentTask;
-                cell4.appendChild(edit);
-                cell5.appendChild(del);
-                cell4.removeChild(saveButton);
-                cell5.removeChild(cancelButton);
-                errorMessage.style.display = "none";
+                var cancelDelete = document.getElementById("cancelDelete");
+                cancelDelete.addEventListener("click", function () {
+                    modal.style.display = "none";
+                });
             });
         });
-
-        del.addEventListener("click", function () {
-            var modal = document.getElementById("confirmationModal");
-            modal.style.display = "block";
-
-            var confirmDelete = document.getElementById("confirmDelete");
-            confirmDelete.addEventListener("click", function () {
-                modal.style.display = "none";
-
-                var rowIndex = del.parentNode.parentNode.rowIndex;
-
-                listTask.splice(rowIndex, 1);
-
-                for (var i = rowIndex; i < listTask.length; i++) {
-                    listTask[i].rowIndex = i;
-                }
-
-                taskTable.deleteRow(rowIndex);
-
-                updateLocalStorage();
-            });
-
-            var cancelDelete = document.getElementById("cancelDelete");
-            cancelDelete.addEventListener("click", function () {
-                modal.style.display = "none";
-            });
-        });
-    });
+    }
 });
 
 var dataTask = [...listTask];
@@ -493,6 +497,7 @@ function addRowToTable(table, value) {
 
         cancelButton.addEventListener("click", function () {
             cell2.innerHTML = currentTask;
+            cell3.innerHTML = currentDate;
             cell4.appendChild(edit);
             cell5.appendChild(del);
             cell4.removeChild(saveButton);
