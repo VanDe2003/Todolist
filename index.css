@@ -232,7 +232,7 @@ button img {
 #taskTable td:nth-child(2) {
     max-width: 10px;
     word-wrap: break-word;
-    width: 59%;
+    width: 71%;
 }
 
 #taskTable td:nth-child(4),
@@ -241,9 +241,8 @@ td:nth-child(5) {
     width: 8%;
 }
 
-/* CSS cho modal */
 .modal {
-    display: none; /* Mặc định ẩn modal */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -288,7 +287,7 @@ td:nth-child(5) {
     #task-input {
         padding-right: 0;
         margin-top: 10px;
-        width: 1000%;
+        width: 50%;
     }
 
     #addTask {
@@ -345,6 +344,7 @@ td:nth-child(5) {
     }
 
     .calendar-input {
+        margin-right: 10px;
     }
 
     .date-input {
@@ -369,6 +369,7 @@ td:nth-child(5) {
     }
 
     .calendar-input {
+        margin-right: 10px;
     }
 
     .date-input {
@@ -385,7 +386,6 @@ td:nth-child(5) {
     #task-input {
         padding-right: 0;
         margin-top: 10px;
-        width: 1000%;
     }
 
     #addTask {
@@ -393,6 +393,7 @@ td:nth-child(5) {
     }
 
     .calendar-input {
+        margin-right: 10px;
     }
 
     .date-input {
