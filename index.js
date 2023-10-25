@@ -91,11 +91,11 @@ function addTask() {
             taskInput.type = "text";
             taskInput.value = currentTask;
 
-            dateInput.type = "text";
+            dateInput.type = "date";
             dateInput.value = currentDate;
 
             taskInput.classList.add("custom-input-edit");
-            dateInput.classList.add("custom-input-date");
+            // dateInput.classList.add("custom-input-date");
             taskInput.setAttribute("rows", "5");
 
             cell4.removeChild(edit);
@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 taskInput.value = currentTask;
 
                 var dateInput = document.createElement("input");
-                dateInput.type = "text";
+                dateInput.type = "date";
                 dateInput.value = currentDate;
 
                 taskInput.classList.add("custom-input-edit");
@@ -346,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 var dataTask = [...listTask];
 
-// Arrange Task
+// // Arrange Task
 dataTask.sort(function (a, b) {
     var nameA = a.task.toUpperCase();
     var nameB = b.task.toUpperCase();
@@ -364,15 +364,7 @@ dataTask.sort(function (a, b) {
 document.getElementById("taskFilter").addEventListener("change", function () {
     var changeValue = document.getElementById("taskFilter").value;
 
-    if (changeValue == "az") {
-        while (table.firstChild) {
-            table.removeChild(table.firstChild);
-        }
-
-        for (var i = 0; i < dataTask.length; i++) {
-            addRowToTable(table, dataTask[i]);
-        }
-    } else if (changeValue == "incomplete") {
+    if (changeValue == "incomplete") {
         filterIncompleteTasks();
     } else if (changeValue == "completed") {
         filtercompleteTasks();
@@ -388,10 +380,10 @@ document.getElementById("taskFilter").addEventListener("change", function () {
 });
 
 // Add Row To Table
-function addRowToTable(table, value) {
+
+function addRowToTable(table, value, rowIndex) {
     var newRow = table.insertRow(table.rows.length);
     var checkbox = document.createElement("input");
-
     checkbox.type = "checkbox";
     checkbox.checked = value.completed;
 
@@ -408,10 +400,6 @@ function addRowToTable(table, value) {
     delIcon.alt = "Delete";
     del.appendChild(delIcon);
 
-    if (typeof value.completed !== "undefined") {
-        checkbox.checked = value.completed;
-    }
-
     var cell1 = newRow.insertCell(0);
     var cell2 = newRow.insertCell(1);
     var cell3 = newRow.insertCell(2);
@@ -426,7 +414,7 @@ function addRowToTable(table, value) {
 
     checkbox.addEventListener("click", function () {
         value.completed = checkbox.checked;
-        updateCompletedStatus(value.rowIndex, value.completed);
+        updateCompletedStatus(rowIndex, value.completed);
     });
 
     edit.addEventListener("click", function () {
@@ -439,7 +427,7 @@ function addRowToTable(table, value) {
         taskInput.value = currentTask;
 
         var dateInput = document.createElement("input");
-        dateInput.type = "text";
+        dateInput.type = "date";
         dateInput.value = currentDate;
 
         taskInput.classList.add("custom-input-edit");
@@ -486,10 +474,8 @@ function addRowToTable(table, value) {
 
                 errorMessage.style.display = "none";
 
-                var rowIndex = cell2.parentNode.rowIndex;
-
-                listTask[rowIndex].task = updatedTask;
-                listTask[rowIndex].date = updatedDate;
+                value.task = updatedTask;
+                value.date = updatedDate;
 
                 updateLocalStorage();
             }
@@ -509,8 +495,6 @@ function addRowToTable(table, value) {
     del.addEventListener("click", function () {
         var modal = document.getElementById("confirmationModal");
         modal.style.display = "block";
-
-        var rowIndex = this.parentNode.parentNode.rowIndex;
 
         var confirmDelete = document.getElementById("confirmDelete");
         confirmDelete.addEventListener("click", function () {
@@ -549,10 +533,9 @@ function filterIncompleteTasks() {
     while (table.firstChild) {
         table.removeChild(table.firstChild);
     }
-
-    for (var i = 0; i < dataTask.length; i++) {
-        if (!dataTask[i].completed) {
-            addRowToTable(table, dataTask[i]);
+    for (var i = 0; i < listTask.length; i++) {
+        if (!listTask[i].completed) {
+            addRowToTable(table, listTask[i]);
         }
     }
 }
@@ -563,9 +546,9 @@ function filtercompleteTasks() {
         table.removeChild(table.firstChild);
     }
 
-    for (var i = 0; i < dataTask.length; i++) {
-        if (dataTask[i].completed) {
-            addRowToTable(table, dataTask[i]);
+    for (var i = 0; i < listTask.length; i++) {
+        if (listTask[i].completed) {
+            addRowToTable(table, listTask[i]);
         }
     }
 }
