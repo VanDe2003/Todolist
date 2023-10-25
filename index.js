@@ -560,38 +560,3 @@ function alertMessage() {
         errorMessage.style.display = "none";
     }, 3000);
 }
-
-let isSmallToLarge = true;
-const imgSort = document.getElementById("img-sort");
-
-document.querySelector(".sortByDate").addEventListener("click", function () {
-    isSmallToLarge = !isSmallToLarge;
-
-    if (isSmallToLarge) {
-        imgSort.src = "./images/sort-2.png";
-    } else {
-        imgSort.src = "./images/sort.png";
-    }
-
-    if (dataTask && dataTask.length > 0) {
-        ascendingSort = !ascendingSort;
-
-        dataTask.sort(function (a, b) {
-            var timeA = new Date(a.date);
-            var timeB = new Date(b.date);
-            if (ascendingSort) {
-                return timeA - timeB;
-            } else {
-                return timeB - timeA;
-            }
-        });
-
-        while (table.firstChild) {
-            table.removeChild(table.firstChild);
-        }
-
-        for (var i = 0; i < dataTask.length; i++) {
-            addRowToTable(table, dataTask[i]);
-        }
-    }
-});
